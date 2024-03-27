@@ -6,7 +6,6 @@ import os
 
 app = Flask(__name__)
 
-# Define a route for the homepage
 @app.route('/')
 def home():
     return 'Hello, world!'
