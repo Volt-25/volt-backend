@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify  # Added 'jsonify' import for proper JSON responses
 from pymongo import MongoClient
 
 app = Flask(__name__)
