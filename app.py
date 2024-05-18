@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, redirect, url_for
 from pymongo import MongoClient
 from bson.objectid import ObjectId  # To handle MongoDB ObjectIds
 
@@ -115,6 +115,59 @@ def add_club():
         return jsonify({'_id': str(result.inserted_id)}), 201
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+    
+
+@app.route('/events/register', methods=['POST'])
+def register_for_event():
+    try:
+        # Extract data from request
+        registration_data = request.get_json()
+        
+        # Validate and extract individual fields
+        athlete_id = registration_data.get('AthleteId')
+        event_id = registration_data.get('EventId')
+
+        # Ensure all required fields are present
+        if not all([athlete_id, event_id]):
+            return jsonify({'error': 'Missing required fields'}), 400
+        
+        # Check if the event exists
+        event = events_collection.find_one({'_id': ObjectId(event_id)})
+        if not event:
+            return jsonify({'error': 'Event not found'}), 404
+        
+        # Here you can add logic to calculate payment amount or any other necessary data
+        
+        # Redirect the athlete to the payment gateway
+        return redirect(url_for('payment_gateway', athlete_id=athlete_id, event_id=event_id))
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/payment_gateway', methods=['GET'])
+def payment_gateway():
+    try:
+        # Extract athlete ID and event ID from request arguments
+        athlete_id = request.args.get('athlete_id')
+        event_id = request.args.get('event_id')
+
+        # Here you can add logic to fetch athlete and event details for displaying on the payment gateway page
+        
+        # Redirect the athlete to the payment gateway page
+        # For demonstration purposes, let's assume the payment gateway URL is '/payment'
+        return redirect(url_for('payment'))
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/payment', methods=['GET'])
+def payment():
+    try:
+        # Here you can render the payment page or redirect to the actual payment gateway URL
+        # For demonstration purposes, let's just return a message
+        return 'This is the payment page. Implement your payment logic here.'
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+
 
 # if __name__ == '__main__':
 #     app.run(debug=True)
