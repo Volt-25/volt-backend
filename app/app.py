@@ -1,10 +1,9 @@
-from flask import Flask
-from pymongo import MongoClient
+# from flask import Flask
+# from pymongo import MongoClient
 
-app = Flask(__name__)
+# app = Flask(__name__)
 
-# MongoDB connection setup
-client = MongoClient('mongodb+srv://theplasma:Plasma[][][][][]@theplasma.flv6npg.mongodb.net/?retryWrites=true&w=majority&appName=thePlasma')
-db = client['Volt']
+# # MongoDB connection setup
+# client = MongoClient('mongodb+srv://theplasma:Plasma[][][][][]@theplasma.flv6npg.mongodb.net/?retryWrites=true&w=majority&appName=thePlasma')
+# db = client['Volt']
 
-from app import routes  # Import routes to register them
