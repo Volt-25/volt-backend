@@ -14,7 +14,7 @@ db = client['Volt']  # Replace with your database name
 events_collection = db['Events']  # Replace with your collection name for events
 clubs_collection = db['Clubs']  # Replace with your collection name for clubs
 
-@app.route('/events', methods=['GET'])
+@app.route('/api/events', methods=['GET'])
 def get_all_data():
     try:
         # Fetch all documents from the Events collection
@@ -28,7 +28,7 @@ def get_all_data():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/events', methods=['POST'])
+@app.route('/api/events', methods=['POST'])
 def add_data():
     try:
         # Extract data from request
@@ -67,7 +67,7 @@ def add_data():
         return jsonify({'error': str(e)}), 500
 
 # API endpoint to get all clubs
-@app.route('/clubs', methods=['GET'])
+@app.route('/api/clubs', methods=['GET'])
 def get_all_clubs():
     try:
         # Fetch all documents from the Clubs collection
@@ -82,7 +82,7 @@ def get_all_clubs():
         return jsonify({'error': str(e)}), 500
 
 # API endpoint to add a new club
-@app.route('/clubs', methods=['POST'])
+@app.route('/api/clubs', methods=['POST'])
 def add_club():
     try:
         # Extract data from request
@@ -117,7 +117,7 @@ def add_club():
         return jsonify({'error': str(e)}), 500
     
 
-@app.route('/events/register', methods=['POST'])
+@app.route('/api/events/register', methods=['POST'])
 def register_for_event():
     try:
         # Extract data from request
@@ -143,7 +143,7 @@ def register_for_event():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/payment_gateway', methods=['GET'])
+@app.route('/api/payment_gateway', methods=['GET'])
 def payment_gateway():
     try:
         # Extract athlete ID and event ID from request arguments
@@ -158,7 +158,7 @@ def payment_gateway():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-@app.route('/payment', methods=['GET'])
+@app.route('/api/payment', methods=['GET'])
 def payment():
     try:
         # Here you can render the payment page or redirect to the actual payment gateway URL
